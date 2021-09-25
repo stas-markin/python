@@ -24,7 +24,11 @@ def get_links(html_string):
   sports_links = tree.xpath("//*[@class='h2']/@href")
   return sports_links
 
-responce = session.get('https://www.sports.ru/football/')
+try:
+  responce = session.get('https://www.sports.ru/football/')
+except requests.exceptions.RequestException:
+  print('Сайт временно недоступен')
+  
 title_sport = get_titles(responce.text)
 content_sports = get_contents(responce.text)
 links_sports = get_links(responce.text)
