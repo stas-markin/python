@@ -1,0 +1,30 @@
+---
+test-host:
+  vars:
+    stand_name: 'test-host'
+    old_stand: no
+    core_version: 'pprb_gts'
+    custom_root_dir: "/gts"
+    security_schema_version: 'v1'
+    stand_user: 'ansible-pid'
+    ansible_ssh_port: 9022
+    domain: 'gostech.novalocal'
+
+  hosts:
+    hostname1:
+      ansible_host: 172.27.211.11
+
+    hostname2:
+      ansible_host: 172.27.211.210
+
+
+postgresql_cluster:
+  children:
+    postgresql_cluster_first_cluster:
+      vars:
+        postgresql_roles:
+          - default
+      hosts:
+        hostname1:
+          postgresql_master: True
+        hostname2:
